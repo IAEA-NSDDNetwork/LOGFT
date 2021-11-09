@@ -1,0 +1,236 @@
+                                     LOGFT
+                          Version 7.2a [Mar. 20, 2001]
+
+
+          Author:  National Nuclear Data Center
+                   Building 197D
+                   Brookhaven National Laboratory
+                   Upton, NY 11973
+                   Phone: 631-344-2901 FAX: 631-344-2806
+                   Email: "NNDC@BNL.GOV"
+
+                   (Original authors: N.B. Gove and M.J. Martin,
+                     Nuclear Data Project, Oak Ridge National Laboratory
+                     and B.J. Barton, National Nuclear Data Center,
+                     Brookhaven National Laboratory)
+
+               This program calculates log ft  for  beta  decay.   It  also
+          calculates  the  partial  capture fractions for electron capture,
+          the electron capture to positron ratio for  positron  decay,  and
+          the  average  beta energies.  It will do special calculations for
+          first and second  forbidden  unique;  All  other  categories  are
+          treated as allowed.
+
+          Input files:
+
+                1.  ENSDF formatted file.  Sample input included:  DATA.TST
+
+                2.  Radial  wave  function  data.   Data   file   included:
+                    LOGFT.DAT
+
+
+          Output files:
+
+                1.  Report file.  Sample output included:  LOGFT.RPT
+
+                2.  New ENSDF formatted file with appropriate values for  B
+                    and   E   cards   updated.    Sample  output  included:
+                    LOGFT.NEW
+
+
+          Terminal dialog:  The program will ask for the names of the input
+                data  file  (default:  TEST.DAT), the report file (default:
+                LOGFT.RPT), the file  containing  the  wave  function  data
+                (default:  LOGFT.DAT), and the file to be created (default:
+                LOGFT.NEW).
+
+          Compilation and loading instructions:
+
+                1.  This program requires subroutines from the  NSDFLIB.FOR
+                    package.
+
+                2.  The default stack parameter in linking under MS FORTRAN
+                    5.0  for  IBM  PC's should be increased (4096 (decimal)
+                    seems adequate).
+
+
+
+                                       1
+
+                                     LOGFT
+                          Version 7.3 [Apr. 20, 2016]
+
+
+          Additional documentation:
+                N.B. Gove and M.J. Martin. LOG-f TABLES FOR BETA DECAY.
+                Nuclear Data Tables A10, 206 (1971).
+
+
+                                   Version History
+          1                 Supplied by ORNL.
+          2A(43)  6-Dec-77  Convert to machine dependent code.
+          2A(44)  3-Jan-78  Fix IF error.
+          3(45)   4-Jan-78  Reduce to single precision.
+          3(50)  31-Jan-78  Replace MIN1 with AMIN1.
+          3(51)   1-Mar-78  Match new (Nov. '77) NDP pgm.
+          3(52)  10-Jul-78  Bring up to new FORSTR level.
+          3(53)   2-Aug-78  Fix Statement 6160 to be F7.3 not F6.3.
+          3(54)  12-Dec-79  Handle missing uncert. for intens.
+          3(55)  12-Dec-79  Correct Statement 1274 for var. len.
+          3(56)  12-Dec-79  Change K,L,M+ to CK,CL,CM+.
+          3(57)  12-Dec-79  Retain precession of IE, IB.
+          4(60)  11-Feb-81  Add subr. CNVUXS and change calls.
+          4(61)  26-May-81  Remove CNVUXS. CNVU2S now does it.
+          4(62)  26-May-81  Replace call to INSERT with PUTIN.
+          4(63)  27-May-81  Use DIALOG=LINE for DEC.
+          5(64)  20-Aug-81  Place NUCID on 2B and 2E cards.
+          5(65)   2-Sep-81  Remove last $ on cont cards.
+          5(66)  23-May-84  Fix new E card generation.
+          6         Jan-86  Convert to FORTRAN 77
+          6(1)    6-Aug-86  Added VAX mdc
+          6(2)    2-Dec-86  Added IbmPC mdc. 
+                            Overflow in DEINT fixed.
+          6(3)    2-Mar-87  2 B, 2 E to S B, S E for cont. rec
+          6(4)    2-Nov-87  VAX mdc READONLY in OPEN data file
+          7       6-Mar-89  Retain alpha uncertainties.  
+                            PN read.
+                            Multiple PARENT cards. 
+                            RADLST's integration
+                            Some output format mods. 
+                            Clean up code, etc.
+          7(1)   20-Apr-89  BKL,BL1L (z<5) data values corrected by
+          7(2)      Aug-89  Further fortran cleanup.
+          7(3)   14-Dec-89  Correct convergence problems in QROMB.
+                            Function F modified.  (T.Burrows)
+          7(4)    6-JUN-90  Convert to IBM PC version. Some cleanup.
+          7(5)   14-SEP-90  IBM version correction. IBONLY set 
+                            condition corrected.
+          7(6)   15-OCT-90  Old integration package. Created PROCE and
+                              WECARD subroutines from sections of MAIN.
+                            Corrected TYPSTR declaration, Q(NUMP)
+                              bound error.
+          7(7)   22-MAY-91  Correct value assignments to new card.
+          7(8)   26-NOV-91  Correct SKIP1 setting when level E nonnumeric
+
+
+
+                                       2
+
+                                     LOGFT
+                          Version 7.2a [Mar. 20, 2001]
+
+
+          7(9)   14-Oct-92  Restored RADLST integration package(run- time
+                              stack overflow problem on IBM-PC solved with
+                              "/ST:4096" on link).
+                            Corrected statement out of order in function
+                              F(W) and use of consecutive arithmetic
+                              operators in subroutine POLINT.
+                            Restored some variable declarations (commented
+                              out) to correspond to commented out sections
+                              of code
+                            Added Machine coding for ANS
+                            (T.W. Burrows)
+          7(10) 16-Dec-92.  Tightened convergence tests from EPS=1.E-5,
+                              EPS1=10.*EPS to EPS=5.E-6, EPS1=EPS and
+                              rewrote check on convergence in QROMB after
+                              intercomparison with CML code BETAF.
+                            Finished typing all variables.
+                            Changed heurestic check on W0 from 1.2 to 2.0
+                            Protected against floating overflows in
+                              calculating DETOP
+                            Rewrote logic in calculating PINT and EINT to
+                              protect against unrealistic uncertainties
+                              when ETOP large or machine roundoff when ETOP
+                              small
+                            Corrected integer function IPREC to account for
+                              floating point notation
+                            Corrected logic for outputing IB and IE when
+                              large uncertainties
+                            (T.W. Burrows)
+          7(11) 17-Feb-93.  Finished correcting convergence problems by
+                              judicious addition of double precision
+                            Corrected:
+                              a. problem when half-life units at end of
+                                 field and neglect of "?" in T field
+                              b. neglect of PN record 
+                              c. neglect of parent and level energies of
+                                the form "0+X"
+                              d. overflow on branching ratio output
+                            Added:
+                              a. more terminal output to notify user of
+                                possible problems
+                              b. check of NB*BR versus NBBR
+                              c. warning when NB=1/BR assumed
+                              d. Check for "E" or "B" continuation records
+                                other then "2" or "S"
+                              e. Improved algorithms for significant digits
+                              f. Minor cleanup
+          7(12) 10-May-93   a. Added checking on NUCID
+                            b. Corrected calculation of A for Z>105
+                            c. Corrected logic error which did not suppress
+                              new output when non-numeric uncertainty on
+                              E(level)
+
+
+                                       3
+
+                                     LOGFT
+                          Version 7.2a [Mar. 20, 2001]
+
+
+                            d. Added check for unplaced or redundant E or B
+                              records
+                            e. Added check for calculated transition
+                              energies less than or equal to 0
+                            f. Delinted using FLINT 2.83
+                            (TWB)
+          7(13) 03-Aug-93   Changed environment variable for VAX version.
+                              (TWB)
+          7(14) 03-Sep-93   Commented out IF statement after call to 
+                              WECARD. For EC only this resulted in the last
+                              calculated LOGFn and LOGFnT to be reported
+                              and values on E record to not be modified.
+                              The error was introduced in version 7(11)
+                              [17-Feb-93].
+          7(15) 25-Mar-96   a. Outputing a blank "S B" card when linked 
+                              with the latest version of NSDFLIB - caused
+                              by a correction in the CNVU2S routine in
+                              NSDFLIB 1.4 - corrected all calls for format
+                              2 of CNVU2S by LOGFT 
+                            b. Corrected problem when blank T1/2 field on P
+                              record
+                            c. Cleaned out redundant coding in WECARD by
+                              introducing ADDFRAC subroutine 
+                            d. Other minor output cleanup 
+                            e. Corrected problems noted by AIX XL Fortran
+                              Compiler 0.3.02.0002.0000
+          7.15a 13-Apr-99   a. Check for and skip Ionized Atom datasets
+                            b. Y2K compliance
+                            c. Corrected an arithmetic overflow in
+                              calculating dtp
+                            d. Check uniqueness. If not allowed or 1U or
+                              2U, added warning to report and terminal
+                              output and comment to new file
+          7.2    7-Feb-01   a. Added UNX MDC coding. (RRK)
+                            b. Save added to code where required.
+                            c. NBBR initialized.
+          7.2a  20-Mar-01   Change path for LOGFT.DAT to logical
+
+7.3+ Later changes documented in GForge at https://ndclx4.bnl.gov/gf/project/ensdfanalysis/scmsvn/?action=browse&path=%2Ftrunk%2F.
+
+                                     Disclaimer
+
+               Neither the Brookhaven Science Associates Inc., nor  the  US
+          Department  of  Energy  make  any  warranty  or  assume any legal
+          responsibility for the results produced by the program.
+
+
+
+
+
+
+
+
+
+                                       4

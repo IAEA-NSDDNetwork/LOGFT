@@ -1,0 +1,5 @@
+To compile this on the Mac, you need to have the gfortran compiler installed.  
+For more information, please visit https://gcc.gnu.org/wiki/GFortranBinariesMacOS.
+
+Run the makefile by typing:
+make logft
