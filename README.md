@@ -1,5 +1,5 @@
 # LOGFT
-Calculates log ft values for beta and electron-capture decay, average beta energies, and capture fractions. 
+LEGACY CODE. Calculates log ft values for beta and electron-capture decay, average beta energies, and capture fractions. 
 
 LOGFT is part of the [ENSDF Analysis and Utility Programs](https://nds.iaea.org/public/ensdf_pgm/).
 
